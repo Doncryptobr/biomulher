@@ -94,10 +94,13 @@
 
         .hero-content {
             max-width: 800px;
-            text-align: center;
             position: relative;
             z-index: 2;
             animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-grid .hero-content {
+            text-align: left;
         }
 
         @keyframes fadeInUp {
@@ -148,8 +151,12 @@
         .hero-divider {
             width: 60px;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
-            margin: 0 auto 25px;
+            background: linear-gradient(90deg, var(--color-accent), transparent);
+            margin: 0 0 25px 0;
+        }
+
+        .hero-grid .subheadline {
+            margin-left: 0;
         }
 
         .subheadline {
@@ -719,8 +726,178 @@
             line-height: 1.6;
         }
 
+        /* Hero with Image */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .hero-image {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Method Section with Image */
+        .method-section {
+            background: var(--color-white);
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .method-image {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .method-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .method-content h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            color: var(--color-text);
+            margin-bottom: 20px;
+        }
+
+        .method-content p {
+            color: var(--color-text-light);
+            margin-bottom: 15px;
+        }
+
+        .method-steps {
+            margin-top: 25px;
+        }
+
+        .method-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .method-step-number {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            background: var(--color-accent);
+            color: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        /* Triangle Section */
+        .triangle-section {
+            background: var(--color-bg);
+            text-align: center;
+        }
+
+        .triangle-image {
+            max-width: 700px;
+            margin: 40px auto 0;
+        }
+
+        .triangle-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Bonus Cards with Images */
+        .bonus-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            margin-bottom: 20px;
+        }
+
+        /* Product Preview Section */
+        .preview-section {
+            background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-warm) 100%);
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .preview-card {
+            background: var(--color-white);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .preview-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            margin-bottom: 15px;
+        }
+
+        .preview-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--color-primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .preview-card p {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-image {
+                order: -1;
+                max-width: 350px;
+                margin: 0 auto;
+            }
+
+            .method-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .method-image {
+                order: -1;
+            }
+
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
             section {
                 padding: 60px 15px;
             }
@@ -772,21 +949,26 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <p class="pre-headline">Para mulheres 40+</p>
-            <h1 class="headline">
-                Por Que Você Come Cada Vez Menos<br>e Continua Inchada?
-            </h1>
-            <p class="headline-secondary">
-                A resposta está no <span class="headline-highlight">"Apagão Metabólico"</span><br>— e a solução não é passar mais fome.
-            </p>
-            <div class="hero-divider"></div>
-            <p class="subheadline">
-                Desinche, recupere sua energia e volte a se sentir bem no seu corpo.<br>
-                <strong>Sem contar calorias. Sem passar fome. Sem viver na academia.</strong>
-            </p>
-            <a href="#oferta" class="cta-button">Quero Religar Meu Metabolismo</a>
-            <span class="cta-subtext">Acesso imediato • Garantia de 7 dias</span>
+        <div class="hero-grid">
+            <div class="hero-content">
+                <p class="pre-headline">Para mulheres 40+</p>
+                <h1 class="headline">
+                    Por Que Você Come Cada Vez Menos<br>e Continua Inchada?
+                </h1>
+                <p class="headline-secondary">
+                    A resposta está no <span class="headline-highlight">"Apagão Metabólico"</span><br>— e a solução não é passar mais fome.
+                </p>
+                <div class="hero-divider"></div>
+                <p class="subheadline">
+                    Desinche, recupere sua energia e volte a se sentir bem no seu corpo.<br>
+                    <strong>Sem contar calorias. Sem passar fome. Sem viver na academia.</strong>
+                </p>
+                <a href="#oferta" class="cta-button">Quero Religar Meu Metabolismo</a>
+                <span class="cta-subtext">Acesso imediato • Garantia de 7 dias</span>
+            </div>
+            <div class="hero-image">
+                <img src="images/hero-mulher.png" alt="Mulher 40+ sorrindo com vitalidade">
+            </div>
         </div>
     </section>
 
@@ -819,10 +1001,14 @@
     <!-- Mechanism Section -->
     <section class="mechanism-section">
         <div class="container">
-            <h2 class="section-title fade-in">O "Triângulo Hormonal" Que Ninguém Te Contou</h2>
+            <h2 class="section-title fade-in">O "Triângulo do Equilíbrio" Que Ninguém Te Contou</h2>
             <p class="section-subtitle fade-in">Três hormônios estão por trás de tudo que você sente — e eles precisam trabalhar juntos.</p>
             
-            <div class="mechanism-grid">
+            <div class="triangle-image fade-in">
+                <img src="images/triangulo-hormonal.png" alt="Triângulo do Equilíbrio: Insulina, Cortisol e Estrogênio">
+            </div>
+            
+            <div class="mechanism-grid" style="margin-top: 50px;">
                 <div class="mechanism-card fade-in">
                     <div class="mechanism-icon">⚡</div>
                     <h3>Insulina</h3>
@@ -892,6 +1078,38 @@
         </div>
     </section>
 
+    <!-- Method Section - Prato BioMulher -->
+    <section class="method-section">
+        <div class="container">
+            <div class="method-grid">
+                <div class="method-image fade-in">
+                    <img src="images/prato-biomulher.png" alt="Método do Prato BioMulher 50/25/25">
+                </div>
+                <div class="method-content fade-in">
+                    <h2>O Método do Prato BioMulher</h2>
+                    <p>Esqueça contar calorias, pesar alimentos ou ficar maluca com porcentagens. O Método do Prato é uma <strong>regra visual simples</strong> que você aplica em qualquer refeição:</p>
+                    
+                    <div class="method-steps">
+                        <div class="method-step">
+                            <div class="method-step-number">50%</div>
+                            <p><strong>Vegetais e folhas</strong> — a base da desinflamação e saciedade</p>
+                        </div>
+                        <div class="method-step">
+                            <div class="method-step-number">25%</div>
+                            <p><strong>Proteínas</strong> — para manter seu músculo (o motor do metabolismo)</p>
+                        </div>
+                        <div class="method-step">
+                            <div class="method-step-number">25%</div>
+                            <p><strong>Carboidratos</strong> — energia sustentada, sem picos de glicose</p>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 20px; font-style: italic; color: var(--color-primary);">Comece pelos vegetais e proteínas, deixe o carboidrato por último — isso "amortece" a resposta da insulina.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Benefits Section -->
     <section class="benefits-section">
         <div class="container">
@@ -936,6 +1154,7 @@
             <div class="bonus-grid">
                 <div class="bonus-card fade-in">
                     <div class="bonus-badge">Grátis</div>
+                    <img src="images/checklist-compras.png" alt="Checklist de Compras Anti-Inflamatória" class="bonus-image">
                     <h3>🛒 Checklist de Compras Anti-Inflamatória</h3>
                     <p>Uma lista prática, pronta para levar ao mercado, dividida em: <em>"Leve sempre"</em> vs. <em>"Deixe na prateleira"</em>. Chega de ficar perdida no corredor lendo rótulos — você vai saber exatamente o que colocar no carrinho.</p>
                     <p class="bonus-value">Valor: R$ 47,00</p>
@@ -943,6 +1162,7 @@
                 
                 <div class="bonus-card fade-in">
                     <div class="bonus-badge">Grátis</div>
+                    <img src="images/shots-matinais.png" alt="10 Shots Matinais de Vitalidade" class="bonus-image">
                     <h3>🍵 10 Shots Matinais de Vitalidade</h3>
                     <p>Receitas de 2 minutos de bebidas funcionais para começar o dia desinflamando, acelerando sua disposição e acabando com aquela sensação de "acordar já cansada". Ingredientes simples que você já tem em casa.</p>
                     <p class="bonus-value">Valor: R$ 37,00</p>
