@@ -4,6 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Protocolo BioMulher 40+ | Reativação Metabólica</title>
+    
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '706522315838468');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=706522315838468&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Supabase Tracking -->
+    <script>
+    const SUPABASE_URL = 'https://mulnlmuegprvlopyfxit.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11bG5sbXVlZ3BydmxvcHlmeGl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ1MzQwNjUsImV4cCI6MjA4MDExMDA2NX0.rBN2VrQ_XAUA7o-uSqpM8LUblohjl6FrjcFS1Hy_xTo';
+    
+    // Gerar session ID único
+    function getSessionId() {
+        let sessionId = sessionStorage.getItem('bmSessionId');
+        if (!sessionId) {
+            sessionId = 'bm_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            sessionStorage.setItem('bmSessionId', sessionId);
+        }
+        return sessionId;
+    }
+
+    // Pegar UTMs da URL
+    function getUTMs() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            utm_source: params.get('utm_source'),
+            utm_medium: params.get('utm_medium'),
+            utm_campaign: params.get('utm_campaign'),
+            utm_content: params.get('utm_content')
+        };
+    }
+
+    // Enviar evento para Supabase
+    async function trackEvent(eventType, extraData = {}) {
+        const utms = getUTMs();
+        const payload = {
+            event_type: eventType,
+            page: 'biomulher',
+            session_id: getSessionId(),
+            user_agent: navigator.userAgent,
+            referrer: document.referrer || null,
+            ...utms,
+            ...extraData
+        };
+
+        try {
+            await fetch(SUPABASE_URL + '/rest/v1/lp_events', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': 'Bearer ' + SUPABASE_KEY
+                },
+                body: JSON.stringify(payload)
+            });
+        } catch (e) {
+            console.log('Tracking error:', e);
+        }
+    }
+
+    // Track page view on load
+    trackEvent('page_view');
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -943,6 +1020,75 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Sticky CTA Button */
+        .sticky-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(253, 248, 244, 0.98) 30%);
+            padding: 20px 20px 25px;
+            z-index: 1000;
+            transition: bottom 0.4s ease;
+        }
+
+        .sticky-cta.visible {
+            bottom: 0;
+        }
+
+        .sticky-cta-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .sticky-cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary) 100%);
+            color: var(--color-white);
+            padding: 16px 32px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 6px 25px rgba(193, 127, 89, 0.45);
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        .sticky-cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(193, 127, 89, 0.55);
+        }
+
+        .sticky-cta-button .arrow {
+            font-size: 1.2rem;
+            transition: transform 0.2s ease;
+        }
+
+        .sticky-cta-button:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        .sticky-cta-subtext {
+            display: block;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-top: 8px;
+        }
+
+        footer {
+            padding-bottom: 120px;
+        }
     </style>
 </head>
 <body>
@@ -963,7 +1109,7 @@
                     Desinche, recupere sua energia e volte a se sentir bem no seu corpo.<br>
                     <strong>Sem contar calorias. Sem passar fome. Sem viver na academia.</strong>
                 </p>
-                <a href="#oferta" class="cta-button">Quero Religar Meu Metabolismo</a>
+                <a href="https://pay.hotmart.com/P103197406O" class="cta-button">Quero Religar Meu Metabolismo</a>
                 <span class="cta-subtext">Acesso imediato • Garantia de 7 dias</span>
             </div>
             <div class="hero-image">
@@ -1198,11 +1344,11 @@
                 
                 <div class="final-price">
                     <p class="today-label">Hoje, você leva tudo por apenas:</p>
-                    <p class="price-value"><span>R$</span> 47</p>
+                    <p class="price-value"><span>R$</span> 29<small>,90</small></p>
                     <p class="price-note">Pagamento único • Acesso vitalício</p>
                 </div>
                 
-                <a href="#" class="cta-button">QUERO MEU ACESSO AGORA</a>
+                <a href="https://pay.hotmart.com/P103197406O" class="cta-button">QUERO MEU ACESSO AGORA</a>
                 <span class="cta-subtext">Acesso imediato após a confirmação do pagamento</span>
             </div>
         </div>
@@ -1287,10 +1433,20 @@
                 A primeira é fechar essa página, voltar para as mesmas dietas de sempre e continuar brigando com um corpo que parece não te ouvir mais.<br><br>
                 A segunda é dar o primeiro passo para entender <em>de verdade</em> o que está acontecendo com seu metabolismo — e finalmente ter um plano que respeita a mulher que você é hoje.
             </p>
-            <a href="#oferta" class="cta-button">SIM, QUERO COMEÇAR AGORA</a>
-            <span class="cta-subtext">Apenas R$ 47 • Garantia de 7 dias • Acesso imediato</span>
+            <a href="https://pay.hotmart.com/P103197406O" class="cta-button">SIM, QUERO COMEÇAR AGORA</a>
+            <span class="cta-subtext">Apenas R$ 29,90 • Garantia de 7 dias • Acesso imediato</span>
         </div>
     </section>
+
+    <!-- Sticky CTA -->
+    <div class="sticky-cta" id="stickyCta">
+        <div class="sticky-cta-content">
+            <a href="https://pay.hotmart.com/P103197406O" class="sticky-cta-button">
+                Quero Desinchar Agora <span class="arrow">→</span>
+            </a>
+        </div>
+        <p class="sticky-cta-subtext">Por apenas R$ 29,90 • Garantia de 7 dias</p>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -1318,6 +1474,14 @@
                     faqItem.classList.add('active');
                 }
             });
+        });
+
+        // Meta Pixel - ViewContent on page load
+        fbq('track', 'ViewContent', {
+            content_name: 'Protocolo BioMulher - Landing Page',
+            content_category: 'Ebook',
+            value: 29.90,
+            currency: 'BRL'
         });
 
         // Scroll Animation
@@ -1350,6 +1514,66 @@
                     });
                 }
             });
+        });
+
+        // Sticky CTA visibility
+        const stickyCta = document.getElementById('stickyCta');
+        const heroSection = document.querySelector('.hero');
+        
+        function toggleStickyCta() {
+            const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+            const scrollPosition = window.scrollY + window.innerHeight;
+            
+            if (window.scrollY > heroBottom - 200) {
+                stickyCta.classList.add('visible');
+            } else {
+                stickyCta.classList.remove('visible');
+            }
+        }
+
+        window.addEventListener('scroll', toggleStickyCta);
+        toggleStickyCta(); // Check on load
+
+        // Meta Pixel - Track CTA clicks
+        document.querySelectorAll('.cta-button, .sticky-cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Meta Pixel
+                fbq('track', 'InitiateCheckout', {
+                    content_name: 'Protocolo BioMulher',
+                    content_category: 'Ebook',
+                    value: 29.90,
+                    currency: 'BRL'
+                });
+                // Supabase
+                trackEvent('cta_click');
+            });
+        });
+
+        // Track scroll depth
+        let scrollTracked = { 25: false, 50: false, 75: false, 100: false };
+        window.addEventListener('scroll', function() {
+            const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+            
+            if (scrollPercent >= 25 && !scrollTracked[25]) {
+                fbq('trackCustom', 'ScrollDepth', { percent: 25 });
+                trackEvent('scroll_25', { scroll_depth: 25 });
+                scrollTracked[25] = true;
+            }
+            if (scrollPercent >= 50 && !scrollTracked[50]) {
+                fbq('trackCustom', 'ScrollDepth', { percent: 50 });
+                trackEvent('scroll_50', { scroll_depth: 50 });
+                scrollTracked[50] = true;
+            }
+            if (scrollPercent >= 75 && !scrollTracked[75]) {
+                fbq('trackCustom', 'ScrollDepth', { percent: 75 });
+                trackEvent('scroll_75', { scroll_depth: 75 });
+                scrollTracked[75] = true;
+            }
+            if (scrollPercent >= 95 && !scrollTracked[100]) {
+                fbq('trackCustom', 'ScrollDepth', { percent: 100 });
+                trackEvent('scroll_100', { scroll_depth: 100 });
+                scrollTracked[100] = true;
+            }
         });
     </script>
 </body>
