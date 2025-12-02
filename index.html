@@ -23,63 +23,188 @@
     /></noscript>
     <!-- End Meta Pixel Code -->
 
-    <!-- Supabase Tracking -->
-    <script>
-    const SUPABASE_URL = 'https://mulnlmuegprvlopyfxit.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11bG5sbXVlZ3BydmxvcHlmeGl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ1MzQwNjUsImV4cCI6MjA4MDExMDA2NX0.rBN2VrQ_XAUA7o-uSqpM8LUblohjl6FrjcFS1Hy_xTo';
+    <!-- CÓDIGO PARA ADICIONAR NO <HEAD> DA LANDING PAGE -->
+<!-- Substitua o tracking atual por este código melhorado -->
+
+<script>
+// ============================================
+// FACEBOOK PIXEL - Configuração
+// ============================================
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+
+// COLOQUE SEU PIXEL ID AQUI
+fbq('init', '4259285001014164'); 
+fbq('track', 'PageView');
+
+// Status do Pixel para debug
+window.pixelStatus = {
+    loaded: true,
+    pixelId: '4259285001014164',
+    events: []
+};
+
+// ============================================
+// SUPABASE - Configuração
+// ============================================
+const SUPABASE_URL = 'https://mulnlmuegprvlopyfxit.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11bG5sbXVlZ3BydmxvcHlmeGl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ1MzQwNjUsImV4cCI6MjA4MDExMDA2NX0.rBN2VrQ_XAUA7o-uSqpM8LUblohjl6FrjcFS1Hy_xTo';
+
+// Gerar/recuperar Session ID
+function getSessionId() {
+    let sessionId = sessionStorage.getItem('biomulher_session');
+    if (!sessionId) {
+        sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        sessionStorage.setItem('biomulher_session', sessionId);
+    }
+    return sessionId;
+}
+
+// Verificar se é sessão de admin
+function isAdminSession() {
+    const adminSessions = localStorage.getItem('biomulher_admin_sessions');
+    if (!adminSessions) return false;
+    const sessions = JSON.parse(adminSessions);
+    return sessions.includes(getSessionId());
+}
+
+// Pegar UTM parameters da URL
+function getUTMParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        utm_source: params.get('utm_source') || null,
+        utm_medium: params.get('utm_medium') || null,
+        utm_campaign: params.get('utm_campaign') || null,
+        utm_content: params.get('utm_content') || null,
+        utm_term: params.get('utm_term') || null
+    };
+}
+
+// Função para enviar eventos
+async function trackEvent(eventType, extraData = {}) {
+    const sessionId = getSessionId();
+    const isAdmin = isAdminSession();
     
-    // Gerar session ID único
-    function getSessionId() {
-        let sessionId = sessionStorage.getItem('bmSessionId');
-        if (!sessionId) {
-            sessionId = 'bm_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            sessionStorage.setItem('bmSessionId', sessionId);
-        }
-        return sessionId;
-    }
+    const eventData = {
+        event_type: eventType,
+        session_id: sessionId,
+        is_admin: isAdmin,
+        page_url: window.location.href,
+        user_agent: navigator.userAgent,
+        ...getUTMParams(),
+        ...extraData
+    };
 
-    // Pegar UTMs da URL
-    function getUTMs() {
-        const params = new URLSearchParams(window.location.search);
-        return {
-            utm_source: params.get('utm_source'),
-            utm_medium: params.get('utm_medium'),
-            utm_campaign: params.get('utm_campaign'),
-            utm_content: params.get('utm_content')
-        };
-    }
-
-    // Enviar evento para Supabase
-    async function trackEvent(eventType, extraData = {}) {
-        const utms = getUTMs();
-        const payload = {
-            event_type: eventType,
-            page: 'biomulher',
-            session_id: getSessionId(),
-            user_agent: navigator.userAgent,
-            referrer: document.referrer || null,
-            ...utms,
-            ...extraData
-        };
-
-        try {
-            await fetch(SUPABASE_URL + '/rest/v1/lp_events', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'apikey': SUPABASE_KEY,
-                    'Authorization': 'Bearer ' + SUPABASE_KEY
-                },
-                body: JSON.stringify(payload)
+    try {
+        await fetch(`${SUPABASE_URL}/rest/v1/analytics`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`
+            },
+            body: JSON.stringify(eventData)
+        });
+        
+        // Registrar no status do pixel
+        if (window.pixelStatus) {
+            window.pixelStatus.events.push({
+                type: eventType,
+                timestamp: new Date().toISOString()
             });
-        } catch (e) {
-            console.log('Tracking error:', e);
         }
+    } catch (error) {
+        console.error('Erro ao enviar evento:', error);
     }
+}
 
-    // Track page view on load
+// ============================================
+// TRACKING DE EVENTOS
+// ============================================
+
+// 1. Page View (automático)
+document.addEventListener('DOMContentLoaded', function() {
     trackEvent('page_view');
-    </script>
+});
+
+// 2. CTA Clicks
+document.addEventListener('DOMContentLoaded', function() {
+    // Selecionar todos os botões CTA
+    const ctaButtons = document.querySelectorAll('.cta-button, .sticky-cta-button, [href*="checkout"], [href*="comprar"]');
+    
+    ctaButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Facebook Pixel
+            fbq('track', 'InitiateCheckout', {
+                content_name: 'Protocolo BioMulher',
+                content_category: 'Ebook',
+                value: 29.90,
+                currency: 'BRL'
+            });
+            
+            // Supabase
+            trackEvent('cta_click', {
+                button_text: this.textContent.trim(),
+                button_position: this.classList.contains('sticky-cta-button') ? 'sticky' : 'inline'
+            });
+        });
+    });
+});
+
+// 3. Scroll Depth
+let scrollTracked = { 25: false, 50: false, 75: false, 100: false };
+window.addEventListener('scroll', function() {
+    const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+    
+    if (scrollPercent >= 25 && !scrollTracked[25]) {
+        fbq('trackCustom', 'ScrollDepth', { percent: 25 });
+        trackEvent('scroll_25', { scroll_depth: 25 });
+        scrollTracked[25] = true;
+    }
+    if (scrollPercent >= 50 && !scrollTracked[50]) {
+        fbq('trackCustom', 'ScrollDepth', { percent: 50 });
+        trackEvent('scroll_50', { scroll_depth: 50 });
+        scrollTracked[50] = true;
+    }
+    if (scrollPercent >= 75 && !scrollTracked[75]) {
+        fbq('trackCustom', 'ScrollDepth', { percent: 75 });
+        trackEvent('scroll_75', { scroll_depth: 75 });
+        scrollTracked[75] = true;
+    }
+    if (scrollPercent >= 95 && !scrollTracked[100]) {
+        fbq('trackCustom', 'ScrollDepth', { percent: 100 });
+        trackEvent('scroll_100', { scroll_depth: 100 });
+        scrollTracked[100] = true;
+    }
+});
+
+// 4. Time on Page (quando sair da página)
+let entryTime = Date.now();
+window.addEventListener('beforeunload', function() {
+    const timeSpent = Math.round((Date.now() - entryTime) / 1000);
+    trackEvent('time_on_page', { seconds: timeSpent });
+});
+
+// ============================================
+// VERIFICAÇÃO DO PIXEL (apenas para debug)
+// ============================================
+console.log('✅ Tracking inicializado');
+console.log('📱 Facebook Pixel ID:', window.pixelStatus.pixelId);
+console.log('🔍 Session ID:', getSessionId());
+console.log('👤 Admin Session:', isAdminSession());
+</script>
+
+<!-- Pixel Noscript (Backup) -->
+<noscript>
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=SEU_PIXEL_ID_AQUI&ev=PageView&noscript=1"/>
+</noscript>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
