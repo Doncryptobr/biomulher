@@ -1112,14 +1112,24 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
             }
         }
 
-        /* Animations */
+        /* ============================================
+           CORREÇÃO: Animações começam VISÍVEIS
+           ============================================ */
+        
+        /* Fade-in agora começa VISÍVEL (não invisível) */
         .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
+            opacity: 1;
+            transform: translateY(0);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        .fade-in.visible {
+        /* A animação só é aplicada quando o JS adiciona .animate */
+        .fade-in.animate {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .fade-in.animate.visible {
             opacity: 1;
             transform: translateY(0);
         }
@@ -1224,7 +1234,7 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
     <!-- Lead/Story Section -->
     <section class="lead-section">
         <div class="container">
-            <div class="lead-content fade-in">
+            <div class="lead-content">
                 <p><em>Deixa eu adivinhar...</em></p>
                 
                 <p>Você acorda cansada, mesmo tendo dormido. Olha no espelho e não reconhece mais seu próprio corpo. A barriga parece um balão que nunca desincha — não importa se você comeu salada o dia inteiro.</p>
@@ -1250,27 +1260,27 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
     <!-- Mechanism Section -->
     <section class="mechanism-section">
         <div class="container">
-            <h2 class="section-title fade-in">O "Triângulo do Equilíbrio" Que Ninguém Te Contou</h2>
-            <p class="section-subtitle fade-in">Três hormônios estão por trás de tudo que você sente — e eles precisam trabalhar juntos.</p>
+            <h2 class="section-title">O "Triângulo do Equilíbrio" Que Ninguém Te Contou</h2>
+            <p class="section-subtitle">Três hormônios estão por trás de tudo que você sente — e eles precisam trabalhar juntos.</p>
             
-            <div class="triangle-image fade-in">
+            <div class="triangle-image">
                 <img src="images/triangulo-hormonal.png" alt="Triângulo do Equilíbrio: Insulina, Cortisol e Estrogênio">
             </div>
             
             <div class="mechanism-grid" style="margin-top: 50px;">
-                <div class="mechanism-card fade-in">
+                <div class="mechanism-card">
                     <div class="mechanism-icon">⚡</div>
                     <h3>Insulina</h3>
                     <p>Quando desregulada, transforma cada garfada em estoque de gordura — especialmente na região abdominal. É por isso que você engorda "do nada".</p>
                 </div>
                 
-                <div class="mechanism-card fade-in">
+                <div class="mechanism-card">
                     <div class="mechanism-icon">😤</div>
                     <h3>Cortisol</h3>
                     <p>O hormônio do estresse. Quando alto demais, causa inchaço, aquela "barriga de estresse", e faz seu corpo reter líquido como se estivesse em perigo.</p>
                 </div>
                 
-                <div class="mechanism-card fade-in">
+                <div class="mechanism-card">
                     <div class="mechanism-icon">🌸</div>
                     <h3>Estrogênio</h3>
                     <p>Na fase da pré-menopausa e menopausa, sua queda muda completamente como seu corpo processa os alimentos. O que funcionava antes, simplesmente para de funcionar.</p>
@@ -1282,11 +1292,11 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
     <!-- Boomerang Section - Quebra de Resistência -->
     <section class="boomerang-section">
         <div class="container">
-            <h2 class="section-title fade-in">O "Efeito Bumerangue" Das Dietas Restritivas</h2>
-            <p class="section-subtitle fade-in">Por que quanto mais você restringe, mais seu corpo rebate contra você</p>
+            <h2 class="section-title">O "Efeito Bumerangue" Das Dietas Restritivas</h2>
+            <p class="section-subtitle">Por que quanto mais você restringe, mais seu corpo rebate contra você</p>
             
             <div class="boomerang-visual">
-                <div class="boomerang-step fade-in">
+                <div class="boomerang-step">
                     <div class="step-number">1</div>
                     <div class="step-content">
                         <h4>Você corta calorias drasticamente</h4>
@@ -1296,7 +1306,7 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
                 
                 <div class="divider-arrow">↓</div>
                 
-                <div class="boomerang-step fade-in">
+                <div class="boomerang-step">
                     <div class="step-number">2</div>
                     <div class="step-content">
                         <h4>Seu corpo entra em "modo sobrevivência"</h4>
@@ -1306,7 +1316,7 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
                 
                 <div class="divider-arrow">↓</div>
                 
-                <div class="boomerang-step fade-in">
+                <div class="boomerang-step">
                     <div class="step-number">3</div>
                     <div class="step-content">
                         <h4>O bumerangue volta com força</h4>
@@ -1316,7 +1326,7 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
                 
                 <div class="divider-arrow" style="font-size: 2.5rem; color: var(--color-green);">✦</div>
                 
-                <div class="boomerang-step solution fade-in">
+                <div class="boomerang-step solution">
                     <div class="step-number">✓</div>
                     <div class="step-content">
                         <h4>A Solução: Nutrir para Reativar</h4>
@@ -1331,10 +1341,10 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
     <section class="method-section">
         <div class="container">
             <div class="method-grid">
-                <div class="method-image fade-in">
+                <div class="method-image">
                     <img src="images/prato-biomulher.png" alt="Método do Prato BioMulher 50/25/25">
                 </div>
-                <div class="method-content fade-in">
+                <div class="method-content">
                     <h2>O Método do Prato BioMulher</h2>
                     <p>Esqueça contar calorias, pesar alimentos ou ficar maluca com porcentagens. O Método do Prato é uma <strong>regra visual simples</strong> que você aplica em qualquer refeição:</p>
                     
@@ -1362,31 +1372,31 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
     <!-- Benefits Section -->
     <section class="benefits-section">
         <div class="container">
-            <h2 class="section-title fade-in">O Que Você Vai Descobrir</h2>
-            <p class="section-subtitle fade-in">Dentro do Protocolo BioMulher</p>
+            <h2 class="section-title">O Que Você Vai Descobrir</h2>
+            <p class="section-subtitle">Dentro do Protocolo BioMulher</p>
             
             <div class="benefits-list">
-                <div class="benefit-item fade-in">
+                <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <p class="benefit-text"><strong>O que é o "Triângulo Hormonal"</strong> — e por que Insulina, Cortisol e Estrogênio são os três vilões escondidos por trás da sua barriga inchada</p>
                 </div>
                 
-                <div class="benefit-item fade-in">
+                <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <p class="benefit-text"><strong>O Método do Prato BioMulher (Regra 50/25/25)</strong> — uma forma visual e simples de montar suas refeições sem contar uma única caloria, sem balança de cozinha e sem neura</p>
                 </div>
                 
-                <div class="benefit-item fade-in">
+                <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <p class="benefit-text"><strong>Por que "comer pouco" depois dos 40 faz seu corpo ESTOCAR gordura</strong> — e o que fazer em vez disso para sair do modo de sobrevivência</p>
                 </div>
                 
-                <div class="benefit-item fade-in">
+                <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <p class="benefit-text"><strong>Os 7 alimentos "falsos saudáveis"</strong> que estão sabotando seu café da manhã (o número 3 vai te surpreender — está em 90% das cozinhas brasileiras)</p>
                 </div>
                 
-                <div class="benefit-item fade-in">
+                <div class="benefit-item">
                     <div class="benefit-check">✓</div>
                     <p class="benefit-text"><strong>Como desinchar em poucos dias</strong> ajustando apenas o horário e a combinação das suas refeições (sem cortar nada que você ama)</p>
                 </div>
@@ -1397,11 +1407,11 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
     <!-- Bonus Section -->
     <section class="bonus-section">
         <div class="container">
-            <h2 class="section-title fade-in">E Você Ainda Leva 2 Bônus Exclusivos</h2>
-            <p class="section-subtitle fade-in">Ferramentas práticas para aplicar o método desde o primeiro dia</p>
+            <h2 class="section-title">E Você Ainda Leva 2 Bônus Exclusivos</h2>
+            <p class="section-subtitle">Ferramentas práticas para aplicar o método desde o primeiro dia</p>
             
             <div class="bonus-grid">
-                <div class="bonus-card fade-in">
+                <div class="bonus-card">
                     <div class="bonus-badge">Grátis</div>
                     <img src="images/checklist-compras.png" alt="Checklist de Compras Anti-Inflamatória" class="bonus-image">
                     <h3>🛒 Checklist de Compras Anti-Inflamatória</h3>
@@ -1409,7 +1419,7 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
                     <p class="bonus-value">Valor: R$ 47,00</p>
                 </div>
                 
-                <div class="bonus-card fade-in">
+                <div class="bonus-card">
                     <div class="bonus-badge">Grátis</div>
                     <img src="images/shots-matinais.png" alt="10 Shots Matinais de Vitalidade" class="bonus-image">
                     <h3>🍵 10 Shots Matinais de Vitalidade</h3>
@@ -1423,7 +1433,7 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
     <!-- Offer Section -->
     <section class="offer-section" id="oferta">
         <div class="container">
-            <div class="offer-box fade-in">
+            <div class="offer-box">
                 <h2 class="offer-title">Seu Kit Completo de Reativação Metabólica</h2>
                 
                 <div class="price-anchor">
@@ -1460,7 +1470,7 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
     <!-- Guarantee Section -->
     <section class="guarantee-section">
         <div class="container">
-            <div class="guarantee-box fade-in">
+            <div class="guarantee-box">
                 <div class="guarantee-icon">🛡️</div>
                 <h3 class="guarantee-title">Garantia Incondicional de 7 Dias</h3>
                 <p class="guarantee-text">
@@ -1473,52 +1483,52 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
     <!-- FAQ Section -->
     <section class="faq-section">
         <div class="container">
-            <h2 class="section-title fade-in">Perguntas Frequentes</h2>
+            <h2 class="section-title">Perguntas Frequentes</h2>
             
             <div class="faq-list">
-                <div class="faq-item fade-in">
+                <div class="faq-item">
                     <button class="faq-question">Funciona mesmo sem fazer exercícios?</button>
                     <div class="faq-answer">
                         <p class="faq-answer-content">Sim. O Protocolo BioMulher foca na nutrição como base da reativação metabólica. Exercícios são bem-vindos e potencializam os resultados, mas não são obrigatórios. Muitas mulheres começam a sentir mais energia e disposição naturalmente, o que facilita a inclusão de atividades físicas de forma gradual e prazerosa.</p>
                     </div>
                 </div>
                 
-                <div class="faq-item fade-in">
+                <div class="faq-item">
                     <button class="faq-question">Preciso cortar carboidrato?</button>
                     <div class="faq-answer">
                         <p class="faq-answer-content">Não! Muito pelo contrário. O método ensina a incluir os carboidratos certos, na quantidade certa e no momento certo. Cortar carboidratos completamente pode piorar o "apagão metabólico". Você vai aprender a fazer escolhas inteligentes sem precisar eliminar grupos alimentares inteiros.</p>
                     </div>
                 </div>
                 
-                <div class="faq-item fade-in">
+                <div class="faq-item">
                     <button class="faq-question">E se eu tiver alguma restrição alimentar?</button>
                     <div class="faq-answer">
                         <p class="faq-answer-content">O Protocolo foi criado com flexibilidade. Você aprenderá princípios nutricionais que podem ser adaptados para diferentes necessidades — seja intolerância à lactose, glúten, ou outras restrições. O foco está em entender a lógica por trás das escolhas, não em seguir um cardápio rígido.</p>
                     </div>
                 </div>
                 
-                <div class="faq-item fade-in">
+                <div class="faq-item">
                     <button class="faq-question">Em quanto tempo vou ver resultados?</button>
                     <div class="faq-answer">
                         <p class="faq-answer-content">Cada corpo é único e responde de forma diferente. Porém, muitas mulheres relatam sentir melhora no inchaço e na disposição já nas primeiras semanas de aplicação do método. O objetivo é criar um estilo de vida sustentável, não uma solução "milagrosa" de curto prazo.</p>
                     </div>
                 </div>
                 
-                <div class="faq-item fade-in">
+                <div class="faq-item">
                     <button class="faq-question">Como recebo o material?</button>
                     <div class="faq-answer">
                         <p class="faq-answer-content">Imediatamente após a confirmação do pagamento, você receberá um e-mail com o link de acesso à área de membros. Lá estarão disponíveis o Livro Principal do Protocolo e os 2 Bônus em formato PDF, prontos para download. Você pode acessar de qualquer dispositivo: celular, tablet ou computador.</p>
                     </div>
                 </div>
                 
-                <div class="faq-item fade-in">
+                <div class="faq-item">
                     <button class="faq-question">O pagamento é seguro?</button>
                     <div class="faq-answer">
                         <p class="faq-answer-content">Totalmente. O pagamento é processado pela plataforma Hotmart/Kiwify (ou outra), que utiliza criptografia de nível bancário. Seus dados estão 100% protegidos. Você pode pagar via cartão de crédito, PIX ou boleto bancário.</p>
                     </div>
                 </div>
                 
-                <div class="faq-item fade-in">
+                <div class="faq-item">
                     <button class="faq-question">E se eu não gostar?</button>
                     <div class="faq-answer">
                         <p class="faq-answer-content">Você tem 7 dias de garantia incondicional. Se por qualquer motivo sentir que o Protocolo não é para você, basta enviar um e-mail solicitando o reembolso. Devolvemos 100% do valor, sem perguntas e sem burocracia. O risco é todo nosso.</p>
@@ -1530,7 +1540,7 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
 
     <!-- Final CTA Section -->
     <section class="final-cta-section">
-        <div class="final-cta-content fade-in">
+        <div class="final-cta-content">
             <h2 class="final-cta-title">Você Tem Duas Opções Agora</h2>
             <p class="final-cta-text">
                 A primeira é fechar essa página, voltar para as mesmas dietas de sempre e continuar brigando com um corpo que parece não te ouvir mais.<br><br>
@@ -1587,7 +1597,9 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
             currency: 'BRL'
         });
 
-        // Scroll Animation
+        // Scroll Animation - VERSÃO CORRIGIDA
+        // Primeiro, adiciona a classe .animate a todos os elementos fade-in
+        // (só assim a animação de aparecer funciona, mas se o JS falhar, fica visível)
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1601,9 +1613,14 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
             });
         }, observerOptions);
 
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
+        // Ativa animação apenas se o navegador suportar
+        if ('IntersectionObserver' in window) {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.classList.add('animate'); // Adiciona estado inicial de animação
+                observer.observe(el);
+            });
+        }
+        // Se não suportar IntersectionObserver, tudo fica visível automaticamente (sem .animate)
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1650,33 +1667,6 @@ src="https://www.facebook.com/tr?id=4259285001014164&ev=PageView&noscript=1"/>
                 // Supabase
                 trackEvent('cta_click');
             });
-        });
-
-        // Track scroll depth
-        let scrollTracked = { 25: false, 50: false, 75: false, 100: false };
-        window.addEventListener('scroll', function() {
-            const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
-            
-            if (scrollPercent >= 25 && !scrollTracked[25]) {
-                fbq('trackCustom', 'ScrollDepth', { percent: 25 });
-                trackEvent('scroll_25', { scroll_depth: 25 });
-                scrollTracked[25] = true;
-            }
-            if (scrollPercent >= 50 && !scrollTracked[50]) {
-                fbq('trackCustom', 'ScrollDepth', { percent: 50 });
-                trackEvent('scroll_50', { scroll_depth: 50 });
-                scrollTracked[50] = true;
-            }
-            if (scrollPercent >= 75 && !scrollTracked[75]) {
-                fbq('trackCustom', 'ScrollDepth', { percent: 75 });
-                trackEvent('scroll_75', { scroll_depth: 75 });
-                scrollTracked[75] = true;
-            }
-            if (scrollPercent >= 95 && !scrollTracked[100]) {
-                fbq('trackCustom', 'ScrollDepth', { percent: 100 });
-                trackEvent('scroll_100', { scroll_depth: 100 });
-                scrollTracked[100] = true;
-            }
         });
     </script>
 </body>
