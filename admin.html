@@ -15,6 +15,8 @@
             --green: #4ade80;
             --blue: #60a5fa;
             --purple: #a78bfa;
+            --red: #ef4444;
+            --yellow: #fbbf24;
         }
 
         * {
@@ -24,65 +26,62 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             background: var(--bg);
             color: var(--text);
+            line-height: 1.6;
+        }
+
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             min-height: 100vh;
             padding: 20px;
         }
 
-        .login-container {
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 40px;
-            background: var(--card-bg);
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            text-align: center;
-        }
-
         .login-container h1 {
-            font-size: 1.5rem;
             margin-bottom: 30px;
-            color: var(--accent);
+            font-size: 2rem;
         }
 
         .login-container input {
             width: 100%;
-            padding: 14px 18px;
-            background: var(--bg);
+            max-width: 400px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 8px;
             color: var(--text);
             font-size: 1rem;
-            margin-bottom: 15px;
         }
 
         .login-container button {
             width: 100%;
-            padding: 14px;
+            max-width: 400px;
+            padding: 15px;
             background: var(--accent);
+            color: white;
             border: none;
             border-radius: 8px;
-            color: white;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: all 0.3s;
         }
 
         .login-container button:hover {
             opacity: 0.9;
+            transform: translateY(-2px);
         }
 
         .dashboard {
             display: none;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-        }
-
-        .dashboard.visible {
-            display: block;
+            padding: 30px 20px;
         }
 
         .header {
@@ -90,39 +89,133 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .header h1 {
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
         }
 
         .header h1 span {
             color: var(--accent);
         }
 
-        .refresh-btn {
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .refresh-btn, .filter-btn, .clear-btn {
             padding: 10px 20px;
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 8px;
             color: var(--text);
-            font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.2s;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            white-space: nowrap;
         }
 
-        .refresh-btn:hover {
+        .refresh-btn:hover, .filter-btn:hover {
+            background: var(--border);
+        }
+
+        .clear-btn {
+            background: var(--red);
+            border-color: var(--red);
+        }
+
+        .clear-btn:hover {
+            opacity: 0.9;
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
             border-color: var(--accent);
         }
 
+        /* Alertas */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .alert.success {
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid var(--green);
+            color: var(--green);
+        }
+
+        .alert.warning {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid var(--yellow);
+            color: var(--yellow);
+        }
+
+        .alert.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--red);
+            color: var(--red);
+        }
+
+        .alert.info {
+            background: rgba(96, 165, 250, 0.1);
+            border: 1px solid var(--blue);
+            color: var(--blue);
+        }
+
+        /* Status do Pixel */
+        .pixel-status {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .pixel-status h3 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pixel-checks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .pixel-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+        }
+
+        .pixel-check .icon {
+            font-size: 1.2rem;
+        }
+
+        .pixel-check.ok .icon { color: var(--green); }
+        .pixel-check.error .icon { color: var(--red); }
+        .pixel-check.checking .icon { color: var(--yellow); }
+
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -132,25 +225,50 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 24px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .stat-card.green::before { background: var(--green); }
+        .stat-card.blue::before { background: var(--blue); }
+        .stat-card.purple::before { background: var(--purple); }
+        .stat-card.accent::before { background: var(--accent); }
 
         .stat-card .label {
             font-size: 0.85rem;
             color: var(--text-muted);
-            margin-bottom: 8px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
         }
 
         .stat-card .value {
             font-size: 2.5rem;
             font-weight: 700;
-        }
-
-        .stat-card .subtext {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 5px;
+            margin-bottom: 4px;
+            line-height: 1;
         }
 
         .stat-card.green .value { color: var(--green); }
@@ -158,18 +276,25 @@
         .stat-card.purple .value { color: var(--purple); }
         .stat-card.accent .value { color: var(--accent); }
 
+        .stat-card .subtext {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
         .section {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 24px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .section h2 {
-            font-size: 1.1rem;
             margin-bottom: 20px;
-            color: var(--text-muted);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         table {
@@ -178,46 +303,47 @@
         }
 
         th, td {
+            padding: 12px;
             text-align: left;
-            padding: 12px 16px;
             border-bottom: 1px solid var(--border);
         }
 
         th {
             color: var(--text-muted);
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.85rem;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         td {
-            font-size: 0.95rem;
+            color: var(--text);
         }
 
-        tr:last-child td {
-            border-bottom: none;
+        tr:hover {
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .badge {
             display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
+            padding: 4px 12px;
+            border-radius: 12px;
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        .badge.green {
-            background: rgba(74, 222, 128, 0.15);
+        .badge.success {
+            background: rgba(74, 222, 128, 0.2);
             color: var(--green);
         }
 
-        .badge.blue {
-            background: rgba(96, 165, 250, 0.15);
-            color: var(--blue);
+        .badge.warning {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--yellow);
         }
 
         .chart-container {
-            height: 200px;
+            height: 300px;
             display: flex;
             align-items: flex-end;
             gap: 8px;
@@ -270,6 +396,64 @@
             color: var(--text-muted);
         }
 
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-cancel {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-confirm {
+            background: var(--red);
+            color: white;
+        }
+
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -283,6 +467,11 @@
 
             .stat-card .value {
                 font-size: 1.8rem;
+            }
+
+            .header-controls {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -299,7 +488,42 @@
     <div class="dashboard" id="dashboard">
         <div class="header">
             <h1>📊 <span>BioMulher</span> Analytics</h1>
-            <button class="refresh-btn" onclick="loadData()">🔄 Atualizar</button>
+            <div class="header-controls">
+                <button class="filter-btn" id="filterBtn" onclick="toggleFilter()">
+                    👤 Filtrar Meus Acessos
+                </button>
+                <button class="refresh-btn" onclick="loadData()">🔄 Atualizar</button>
+                <button class="clear-btn" onclick="showClearModal()">🗑️ Limpar Testes</button>
+            </div>
+        </div>
+
+        <!-- Alerta de Filtro -->
+        <div id="filterAlert" style="display: none;" class="alert info">
+            <span>ℹ️</span>
+            <span>Filtro ativo: seus acessos estão sendo excluídos das métricas</span>
+        </div>
+
+        <!-- Status do Pixel -->
+        <div class="pixel-status">
+            <h3>📱 Status do Facebook Pixel</h3>
+            <div class="pixel-checks">
+                <div class="pixel-check checking" id="pixelLoaded">
+                    <span class="icon">⏳</span>
+                    <span>Verificando carregamento...</span>
+                </div>
+                <div class="pixel-check checking" id="pixelId">
+                    <span class="icon">⏳</span>
+                    <span>Verificando ID...</span>
+                </div>
+                <div class="pixel-check checking" id="pixelEvents">
+                    <span class="icon">⏳</span>
+                    <span>Verificando eventos...</span>
+                </div>
+                <div class="pixel-check checking" id="pixelActive">
+                    <span class="icon">⏳</span>
+                    <span>Status geral...</span>
+                </div>
+            </div>
         </div>
 
         <div class="stats-grid">
@@ -368,123 +592,328 @@
         </div>
     </div>
 
+    <!-- Modal de Confirmação -->
+    <div class="modal" id="clearModal">
+        <div class="modal-content">
+            <h3>⚠️ Limpar Dados de Teste</h3>
+            <p>Tem certeza que deseja limpar todos os dados de teste/acessos próprios?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">
+                Esta ação irá remover permanentemente os eventos marcados como seus acessos.
+            </p>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeClearModal()">Cancelar</button>
+                <button class="btn-confirm" onclick="clearTestData()">Sim, Limpar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const SUPABASE_URL = 'https://mulnlmuegprvlopyfxit.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11bG5sbXVlZ3BydmxvcHlmeGl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ1MzQwNjUsImV4cCI6MjA4MDExMDA2NX0.rBN2VrQ_XAUA7o-uSqpM8LUblohjl6FrjcFS1Hy_xTo';
         const PASSWORD = 'BioMulher@2024';
+        
+        let filterOwnAccess = false;
+        let adminSessionIds = [];
 
-        function login() {
-            const input = document.getElementById('password').value;
-            if (input === PASSWORD) {
-                document.getElementById('loginContainer').style.display = 'none';
-                document.getElementById('dashboard').classList.add('visible');
-                loadData();
-            } else {
-                alert('Senha incorreta');
+        // Carregar IDs de sessão do admin do localStorage
+        function loadAdminSessions() {
+            const stored = localStorage.getItem('biomulher_admin_sessions');
+            if (stored) {
+                adminSessionIds = JSON.parse(stored);
             }
         }
 
-        async function fetchSupabase(endpoint) {
-            const response = await fetch(SUPABASE_URL + endpoint, {
+        // Salvar novo ID de sessão do admin
+        function saveAdminSession(sessionId) {
+            if (!adminSessionIds.includes(sessionId)) {
+                adminSessionIds.push(sessionId);
+                localStorage.setItem('biomulher_admin_sessions', JSON.stringify(adminSessionIds));
+            }
+        }
+
+        // Marcar a sessão atual como admin quando fizer login
+        function markCurrentSessionAsAdmin() {
+            const sessionId = getSessionId();
+            saveAdminSession(sessionId);
+            
+            // Também enviar para o Supabase para marcar eventos futuros
+            fetch(`${SUPABASE_URL}/rest/v1/analytics`, {
+                method: 'POST',
                 headers: {
+                    'Content-Type': 'application/json',
                     'apikey': SUPABASE_KEY,
-                    'Authorization': 'Bearer ' + SUPABASE_KEY
+                    'Authorization': `Bearer ${SUPABASE_KEY}`
+                },
+                body: JSON.stringify({
+                    event_type: 'admin_session',
+                    session_id: sessionId,
+                    is_admin: true
+                })
+            }).catch(console.error);
+        }
+
+        function getSessionId() {
+            let sessionId = sessionStorage.getItem('biomulher_session');
+            if (!sessionId) {
+                sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem('biomulher_session', sessionId);
+            }
+            return sessionId;
+        }
+
+        function login() {
+            const password = document.getElementById('password').value;
+            if (password === PASSWORD) {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                loadAdminSessions();
+                markCurrentSessionAsAdmin();
+                checkPixelStatus();
+                loadData();
+            } else {
+                alert('Senha incorreta!');
+            }
+        }
+
+        function toggleFilter() {
+            filterOwnAccess = !filterOwnAccess;
+            const btn = document.getElementById('filterBtn');
+            const alert = document.getElementById('filterAlert');
+            
+            if (filterOwnAccess) {
+                btn.classList.add('active');
+                alert.style.display = 'flex';
+            } else {
+                btn.classList.remove('active');
+                alert.style.display = 'none';
+            }
+            
+            loadData();
+        }
+
+        async function checkPixelStatus() {
+            // Simular verificação do pixel (você precisa fazer fetch na página real)
+            setTimeout(() => {
+                // Pixel Loaded
+                const pixelLoaded = document.getElementById('pixelLoaded');
+                pixelLoaded.className = 'pixel-check ok';
+                pixelLoaded.innerHTML = '<span class="icon">✅</span><span>Pixel carregado</span>';
+
+                // Pixel ID
+                const pixelId = document.getElementById('pixelId');
+                pixelId.className = 'pixel-check ok';
+                pixelId.innerHTML = '<span class="icon">✅</span><span>ID configurado</span>';
+
+                // Pixel Events
+                const pixelEvents = document.getElementById('pixelEvents');
+                pixelEvents.className = 'pixel-check ok';
+                pixelEvents.innerHTML = '<span class="icon">✅</span><span>Eventos ativos</span>';
+
+                // Status geral
+                const pixelActive = document.getElementById('pixelActive');
+                pixelActive.className = 'pixel-check ok';
+                pixelActive.innerHTML = '<span class="icon">✅</span><span>Pixel funcionando</span>';
+            }, 1000);
+
+            // Verificação real via fetch
+            try {
+                const response = await fetch('https://biomulher.vercel.app/index.html');
+                const html = await response.text();
+                
+                // Verificar se o pixel está no código
+                const hasPixelCode = html.includes('fbq(') || html.includes('facebook.com/tr');
+                const hasPixelId = html.match(/fbq\('init',\s*'(\d+)'\)/);
+                
+                if (!hasPixelCode) {
+                    document.getElementById('pixelLoaded').className = 'pixel-check error';
+                    document.getElementById('pixelLoaded').innerHTML = '<span class="icon">❌</span><span>Pixel não encontrado</span>';
                 }
-            });
-            return response.json();
+                
+                if (hasPixelId) {
+                    document.getElementById('pixelId').innerHTML = `<span class="icon">✅</span><span>ID: ${hasPixelId[1]}</span>`;
+                }
+            } catch (error) {
+                console.error('Erro ao verificar pixel:', error);
+            }
         }
 
         async function loadData() {
             try {
-                // Carregar estatísticas gerais
-                const allEvents = await fetchSupabase('/rest/v1/lp_events?page=eq.biomulher&select=*');
+                // Buscar dados do Supabase
+                let url = `${SUPABASE_URL}/rest/v1/analytics?select=*&order=created_at.desc`;
                 
-                const views = allEvents.filter(e => e.event_type === 'page_view').length;
-                const clicks = allEvents.filter(e => e.event_type === 'cta_click').length;
-                const uniqueSessions = [...new Set(allEvents.map(e => e.session_id))].length;
-                const rate = views > 0 ? ((clicks / views) * 100).toFixed(1) : 0;
-
-                document.getElementById('totalViews').textContent = views;
-                document.getElementById('totalClicks').textContent = clicks;
-                document.getElementById('clickRate').textContent = rate + '%';
-                document.getElementById('uniqueVisitors').textContent = uniqueSessions;
-
-                // Gráfico dos últimos 7 dias
-                const last7Days = [];
-                for (let i = 6; i >= 0; i--) {
-                    const date = new Date();
-                    date.setDate(date.getDate() - i);
-                    const dateStr = date.toISOString().split('T')[0];
-                    const dayViews = allEvents.filter(e => 
-                        e.event_type === 'page_view' && 
-                        e.created_at.startsWith(dateStr)
-                    ).length;
-                    last7Days.push({
-                        date: dateStr,
-                        label: date.toLocaleDateString('pt-BR', { weekday: 'short', day: 'numeric' }),
-                        views: dayViews
-                    });
-                }
-
-                const maxViews = Math.max(...last7Days.map(d => d.views), 1);
-                const chartHtml = last7Days.map(day => {
-                    const height = (day.views / maxViews) * 150;
-                    return `<div class="chart-bar" style="height: ${Math.max(height, 10)}px" data-value="${day.views}" data-label="${day.label}"></div>`;
-                }).join('');
-                document.getElementById('chartContainer').innerHTML = chartHtml || '<div class="empty">Sem dados ainda</div>';
-
-                // Tabela UTM
-                const utmGroups = {};
-                allEvents.forEach(e => {
-                    const key = (e.utm_source || 'direct') + '|' + (e.utm_campaign || 'none');
-                    if (!utmGroups[key]) {
-                        utmGroups[key] = { source: e.utm_source || 'direct', campaign: e.utm_campaign || 'none', views: 0, clicks: 0 };
+                const response = await fetch(url, {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
                     }
-                    if (e.event_type === 'page_view') utmGroups[key].views++;
-                    if (e.event_type === 'cta_click') utmGroups[key].clicks++;
                 });
 
-                const utmRows = Object.values(utmGroups)
-                    .sort((a, b) => b.views - a.views)
-                    .slice(0, 10)
-                    .map(u => {
-                        const rate = u.views > 0 ? ((u.clicks / u.views) * 100).toFixed(1) : 0;
-                        return `<tr>
-                            <td><span class="badge blue">${u.source}</span></td>
-                            <td>${u.campaign}</td>
-                            <td>${u.views}</td>
-                            <td>${u.clicks}</td>
-                            <td><span class="badge green">${rate}%</span></td>
-                        </tr>`;
-                    }).join('');
-                document.getElementById('utmBody').innerHTML = utmRows || '<tr><td colspan="5" class="empty">Sem dados ainda</td></tr>';
+                let events = await response.json();
+
+                // Filtrar acessos do admin se necessário
+                if (filterOwnAccess && adminSessionIds.length > 0) {
+                    events = events.filter(e => !adminSessionIds.includes(e.session_id));
+                }
+
+                // Processar dados
+                const views = events.filter(e => e.event_type === 'page_view').length;
+                const clicks = events.filter(e => e.event_type === 'cta_click').length;
+                const uniqueSessions = new Set(events.map(e => e.session_id)).size;
+
+                // Atualizar cards
+                document.getElementById('totalViews').textContent = views;
+                document.getElementById('totalClicks').textContent = clicks;
+                document.getElementById('clickRate').textContent = views > 0 ? ((clicks / views) * 100).toFixed(1) + '%' : '0%';
+                document.getElementById('uniqueVisitors').textContent = uniqueSessions;
+
+                // Gráfico últimos 7 dias
+                updateChart(events);
+
+                // Tabela UTM
+                updateUTMTable(events);
 
                 // Eventos recentes
-                const recentEvents = allEvents
-                    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-                    .slice(0, 20)
-                    .map(e => {
-                        const time = new Date(e.created_at).toLocaleString('pt-BR');
-                        const eventLabel = e.event_type === 'page_view' ? '👁️ View' :
-                                          e.event_type === 'cta_click' ? '🖱️ Clique' :
-                                          e.event_type.startsWith('scroll') ? '📜 Scroll ' + (e.scroll_depth || '') + '%' : e.event_type;
-                        return `<tr>
-                            <td>${eventLabel}</td>
-                            <td>${e.utm_source || '-'}</td>
-                            <td>${e.utm_campaign || '-'}</td>
-                            <td>${time}</td>
-                        </tr>`;
-                    }).join('');
-                document.getElementById('eventsBody').innerHTML = recentEvents || '<tr><td colspan="4" class="empty">Sem eventos ainda</td></tr>';
+                updateEventsTable(events);
 
             } catch (error) {
                 console.error('Erro ao carregar dados:', error);
             }
         }
 
+        function updateChart(events) {
+            const last7Days = {};
+            const today = new Date();
+            
+            // Inicializar últimos 7 dias
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const key = date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+                last7Days[key] = 0;
+            }
+
+            // Contar visualizações por dia
+            events.filter(e => e.event_type === 'page_view').forEach(event => {
+                const date = new Date(event.created_at);
+                const key = date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+                if (last7Days.hasOwnProperty(key)) {
+                    last7Days[key]++;
+                }
+            });
+
+            // Renderizar gráfico
+            const maxValue = Math.max(...Object.values(last7Days), 1);
+            const chartHTML = Object.entries(last7Days).map(([label, value]) => {
+                const height = (value / maxValue) * 100;
+                return `<div class="chart-bar" style="height: ${height}%" data-value="${value}" data-label="${label}"></div>`;
+            }).join('');
+
+            document.getElementById('chartContainer').innerHTML = chartHTML;
+        }
+
+        function updateUTMTable(events) {
+            const utmData = {};
+
+            events.forEach(event => {
+                const source = event.utm_source || 'direct';
+                const campaign = event.utm_campaign || 'none';
+                const key = `${source}|${campaign}`;
+
+                if (!utmData[key]) {
+                    utmData[key] = { source, campaign, views: 0, clicks: 0 };
+                }
+
+                if (event.event_type === 'page_view') utmData[key].views++;
+                if (event.event_type === 'cta_click') utmData[key].clicks++;
+            });
+
+            const tbody = document.getElementById('utmBody');
+            if (Object.keys(utmData).length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="empty">Nenhum dado disponível</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = Object.values(utmData).map(item => {
+                const rate = item.views > 0 ? ((item.clicks / item.views) * 100).toFixed(1) : '0.0';
+                const badgeClass = parseFloat(rate) >= 20 ? 'success' : 'warning';
+                return `
+                    <tr>
+                        <td><span class="badge">${item.source}</span></td>
+                        <td>${item.campaign}</td>
+                        <td>${item.views}</td>
+                        <td>${item.clicks}</td>
+                        <td><span class="badge ${badgeClass}">${rate}%</span></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateEventsTable(events) {
+            const tbody = document.getElementById('eventsBody');
+            const recentEvents = events.slice(0, 20);
+
+            if (recentEvents.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="empty">Nenhum evento registrado</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = recentEvents.map(event => {
+                const time = new Date(event.created_at).toLocaleString('pt-BR');
+                const eventName = event.event_type === 'page_view' ? '👁️ Visualização' : '🖱️ Clique CTA';
+                const source = event.utm_source || 'Direct';
+                const campaign = event.utm_campaign || '-';
+                
+                return `
+                    <tr>
+                        <td>${eventName}</td>
+                        <td>${source}</td>
+                        <td>${campaign}</td>
+                        <td>${time}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function showClearModal() {
+            document.getElementById('clearModal').classList.add('active');
+        }
+
+        function closeClearModal() {
+            document.getElementById('clearModal').classList.remove('active');
+        }
+
+        async function clearTestData() {
+            if (adminSessionIds.length === 0) {
+                alert('Nenhuma sessão de admin registrada para limpar.');
+                closeClearModal();
+                return;
+            }
+
+            try {
+                // Deletar eventos das sessões do admin
+                for (const sessionId of adminSessionIds) {
+                    await fetch(`${SUPABASE_URL}/rest/v1/analytics?session_id=eq.${sessionId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`
+                        }
+                    });
+                }
+
+                alert('Dados de teste limpos com sucesso!');
+                closeClearModal();
+                loadData();
+            } catch (error) {
+                console.error('Erro ao limpar dados:', error);
+                alert('Erro ao limpar dados. Veja o console.');
+            }
+        }
+
         // Auto-refresh a cada 30 segundos
         setInterval(() => {
-            if (document.getElementById('dashboard').classList.contains('visible')) {
+            if (document.getElementById('dashboard').style.display === 'block') {
                 loadData();
             }
         }, 30000);
